@@ -1,0 +1,15 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
+    - /var/log/httpd/access.log
+    - /opt/be/log/*.log
+- type: docker
+  containers.ids: '*'
+
+setup.template.settings:
+  index.number_of_shards: 3
+
+output.elasticsearch:
+  hosts: ["http://cribl:10080/elastic"]

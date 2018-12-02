@@ -1,0 +1,51 @@
+asyncFuncTimeout: 1000
+description: For masking sensitive data
+functions:
+  - id: mask
+    filter: source=='pii_ssn'
+    description: Redact Social Security Numbers
+    conf:
+      rules:
+        - matchRegex: /(social=)([0-9]{3}-?[0-9]{2}-?[0-9]{4})/gm
+          replaceExpr: >-
+            `${g1}${C.Mask.repeat(g2)}`
+      fields:
+        - _raw
+  - filter: source=='pii_cc'
+    description: Make copies of CC for Naive and Smart masking
+    conf:
+      clones:
+        - source: pii_smartcc
+        - source: pii_naivecc
+    id: clone
+  - conf:
+      {}
+    filter: source=='pii_cc'
+    description: Drop original event
+    final: true
+    id: drop
+  - filter: source=='pii_naivecc'
+    id: mask
+    description: Mask any 14-16 digit number
+    conf:
+      rules:
+        - matchRegex: /([0-9]{14,16})/gm
+          replaceExpr: C.Mask.md5(g1, g1.length)
+      fields:
+        - _raw
+  - filter: source=='pii_smartcc'
+    id: mask
+    description: Validate CC number before masking
+    conf:
+      rules:
+        - matchRegex: /([0-9]{14,16})/gm
+          replaceExpr: >-
+            C.Mask.isCC(g1) ? C.Mask.md5(g1, g1.length) : g1
+      fields:
+        - _raw
+  - filter: source=='encrypt'
+    id: demo_encrypt
+    description: Encrypt sensitive info
+    disabled: false
+    conf:
+      regex: (?gi)(social=)"?(\w+)"?()

@@ -1,0 +1,22 @@
+FROM outcoldman/splunk:7.2.0
+ARG CRIBL_DISTRO=cribl-demo-splunk-app
+RUN sh -c 'echo dash dash/sh boolean false | debconf-set-selections' && \
+    sh -c 'DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash' && \
+    apt-get update && \
+    apt-get install -y vim nano curl ca-certificates jq && \
+    rm -rf /var/lib/apt/lists/*
+RUN VERSION=$(curl -s https://cdn.cribl.io/versions.json | jq -r .version) && \
+    curl -Lso /tmp/${CRIBL_DISTRO}.tgz https://cdn.cribl.io/dl/$(echo ${VERSION} | cut -d '-' -f 1)/${CRIBL_DISTRO}-${VERSION}.tgz && \
+    tar -zxvf /tmp/${CRIBL_DISTRO}.tgz -C /var/opt/splunk/etc/apps && \
+    cp -R /var/opt/splunk/etc/apps/cribl/modules/cribl /var/opt/splunk/etc/modules/cribl && \
+    rm /tmp/${CRIBL_DISTRO}.tgz
+ADD hack/splunk/etc /var/opt/splunk/etc
+ADD config.sh /var/opt/splunk/etc/apps/cribl/bin/config.sh
+ENV DEMOUSER_NAME "Demo User"
+ENV DEMOUSER_EMAIL "demo@cribl.io"
+ENV SPLUNK_USER root
+ENV SPLUNK_START_ARGS "--accept-license --answer-yes --seed-passwd cribldemo"
+ENV SPLUNK_BEFORE_START_CMD "version ${SPLUNK_START_ARGS}"
+ENV SPLUNK_BEFORE_START_CMD_1 "cmd /bin/bash /opt/splunk/etc/apps/cribl/bin/timeout.sh &"
+ENV SPLUNK_BEFORE_START_CMD_2 "cmd /bin/bash /opt/splunk/etc/apps/cribl/bin/intercom.sh"
+ENV SPLUNK_BEFORE_START_CMD_3 "cmd /bin/bash /opt/splunk/etc/apps/cribl/bin/config.sh"
