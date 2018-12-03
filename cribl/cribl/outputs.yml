@@ -28,3 +28,11 @@ outputs:
     maxFileOpenTimeSec: 60
     maxFileIdleTimeSec: 30
     maxOpenFiles: 100
+  elastic:
+    type: elastic
+    url: http://elasticsearch:9200/_bulk
+    index: cribl
+    docType: cribl
+    concurrency: 5
+    maxPayloadSizeKB: 4096
+    flushPeriodSec: 1

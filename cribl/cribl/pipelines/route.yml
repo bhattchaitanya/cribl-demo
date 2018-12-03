@@ -1,5 +1,14 @@
 id: default
 routes:
+  - id: Qo3BYx
+    name: elastic
+    final: true
+    disabled: false
+    pipeline: elastic
+    filter: __e['@timestamp']
+    description: ""
+    clones:
+      []
   - id: KM9Pf6
     name: Sensitive Data
     final: false
