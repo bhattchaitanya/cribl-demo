@@ -12,6 +12,14 @@ All demos have Cribl and Splunk running. In demos 2 and 2, the Cribl credentials
 * https://localhost:9000/login?username=admin&password=cribldemo - Cribl Demo 1
 * http://localhost:9000/login?username=admin&password=admin - Cribl Demo 2 & 3
 
+Also, in 2 & 3 we've configured Cribl to send to S3 which we're emulating with [Minio](https://github.com/minio/minio). In the demo, the `data` folder will contain data being passed through Cribl and sent to S3 every 60 seconds.
+
+## Data
+
+Data for this demo comes from two sources: [Gogen](https://github.com/coccyx/gogen) and [Filebeat](https://github.com/elastic/beats). Gogen is configured to generate fake data like Weblogs, Transaction logs, etc. It will backfill one hour's worth of data on startup, which you will see as a spike in the graphs. Secondly, Filebeat is configured to grab logs from Docker.
+
+# Scenarios
+
 ## Cribl with Splunk - Single Container
 
 This demo has everything contained in a single container. This demo grabs `cribl-demo-splunk-app`, which contains a data generator (mirrored in the `gogen-filebeat` directory as well). Data flows like:
@@ -41,7 +49,7 @@ This demo splits out data generation and Cribl out into seperate containers. Dat
 
 Data in Splunk also ends up in the `cribl` index. Elastic index is also named `cribl` and `minio` ends up in the `cribl` bucket.
 
-To run the demo, run `docker-compose up -d`. To stop the demo, run `docker-compose down`.
+The demo requires root initially to read the Docker containers folder. To run the demo, run `DOCKER_LIB_CONTAINERS=$(docker info -f '{{.DockerRootDir}}')/containers && sudo docker-compose up -d`. To stop the demo, run `docker-compose down`.
 
 ## Cribl Routing Demo with Kafka
 
@@ -56,4 +64,4 @@ This demo adds Kafka in the middle between the data generation and Cribl. Data f
       `- Elastic Bulk Ingestion -> elastic:9200
       `- S3 -> minio:80
 
-To run the demo, run `docker-compose -f docker-compose-kafka.yml up -d`. To stop the demo, run `docker-compose -f docker-compose-kafka.yml down`.
+The demo requires root initially to read the Docker containers folder. To run the demo, run `DOCKER_LIB_CONTAINERS=$(docker info -f '{{.DockerRootDir}}')/containers && sudo docker-compose -f docker-compose-kafka.yml up -d`. To stop the demo, run `docker-compose down`.

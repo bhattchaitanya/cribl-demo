@@ -11,10 +11,8 @@ if [ "$1" = "start-kafka" ]; then
     filebeat -c /etc/filebeat/filebeat.yml run
 elif [ "$1" = "start-direct" ]; then
     sleep 15
+    filebeat -c /etc/filebeat/filebeat.yml run &
     gogen -v -cd /etc/gogen -o tcp --url cribl:10001 -ot json -at gen
-fi
-
-if [ "$1" = "start-direct" ]; then
 fi
 
 exec "$@"

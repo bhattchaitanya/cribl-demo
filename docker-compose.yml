@@ -6,8 +6,8 @@ services:
     volumes:
     #  - "/var/lib/docker/containers:/usr/share/dockerlogs/data:ro"
     #  - "/var/run/docker.sock:/var/run/docker.sock"
-      - "/var/snap/docker/common/var-lib-docker:/var/lib/docker/containers"
-      - "/run/docker.sock:/var/run/docker.sock"
+      - "${DOCKER_LIB_CONTAINERS:-/var/lib/docker/containers}:/var/lib/docker/containers"
+      - "/var/run/docker.sock:/var/run/docker.sock"
   cribl:
     build:
       context: cribl
