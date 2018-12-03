@@ -1,0 +1,30 @@
+outputs:
+  default:
+    defaultId: splunk
+    type: default
+  splunk:
+    type: splunk
+    host: splunk
+    port: 9997
+    nestedFields: none
+    tls:
+      disabled: true
+  minio:
+    type: s3
+    bucket: business_event
+    destPath: ""
+    stagePath: /tmp/cribl
+    awsApiKey: ACCESSKEY
+    awsSecretKey: SECRETKEY
+    region: us-east-1
+    endpoint: http://minio:9000
+    signatureVersion: v4
+    partitionExpr: >-
+      `${host}/${sourcetype}`
+    format: json
+    baseFileName: CriblOut
+    compress: none
+    maxFileSizeMB: 32
+    maxFileOpenTimeSec: 60
+    maxFileIdleTimeSec: 30
+    maxOpenFiles: 100

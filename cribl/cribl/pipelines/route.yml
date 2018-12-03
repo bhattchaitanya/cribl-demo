@@ -24,6 +24,15 @@ routes:
     clones:
       - index: cribl-modified
         source: pretty_autokv
+  - id: qVOe5A
+    name: KV to JSON -> Minio
+    final: true
+    disabled: false
+    pipeline: kv2json-minio
+    filter: index=='cribl' && sourcetype=='business_event'
+    description: KV To JSON in S3
+    clones:
+      []
   - id: py0d5r
     name: Logs to Metrics
     final: false
@@ -82,3 +91,5 @@ routes:
     pipeline: main
     filter: "true"
     description: Catchall for routing data through main pipeline
+    clones:
+      []

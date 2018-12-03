@@ -9,13 +9,14 @@ services:
       - "/var/snap/docker/common/var-lib-docker:/var/lib/docker/containers"
       - "/run/docker.sock:/var/run/docker.sock"
   cribl:
-    image: cribl/cribl:latest
+    build:
+      context: cribl
     ports:
       - "10080:10080"
       - "10001:10001"
       - "9000:9000"
     volumes:
-      - "./cribl:/opt/cribl/local/cribl"
+      - "./cribl/cribl:/opt/cribl/local/cribl"
   splunk:
     image: cribl/splunk:latest
     ports:
@@ -26,4 +27,13 @@ services:
     environment:
       - "DONT_TIMEOUT=1"
       - "CRIBL_ROUTING_DEMO=1"
-
+  minio:
+    image: minio/minio:latest
+    environment:
+      - "MINIO_ACCESS_KEY=ACCESSKEY"
+      - "MINIO_SECRET_KEY=SECRETKEY"
+    ports:
+      - "9001:9000"
+    volumes:
+      - "./data:/data"
+    command: server /data
