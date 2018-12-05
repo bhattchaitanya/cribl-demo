@@ -35,13 +35,13 @@ routes:
         source: pretty_autokv
   - id: qVOe5A
     name: KV to JSON -> Minio
-    final: true
+    final: false
     disabled: false
     pipeline: kv2json-minio
     filter: index=='cribl' && sourcetype=='business_event'
     description: KV To JSON in S3
     clones:
-      []
+      - index: minio
   - id: py0d5r
     name: Logs to Metrics
     final: false

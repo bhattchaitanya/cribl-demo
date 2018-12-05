@@ -1,0 +1,4 @@
+asyncFuncTimeout: 1000
+output: elastic
+functions:
+  []
