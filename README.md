@@ -49,7 +49,7 @@ This demo splits out data generation and Cribl out into seperate containers. Dat
 
 Data in Splunk also ends up in the `cribl` index. Elastic index is also named `cribl` and `minio` ends up in the `cribl` bucket.
 
-The demo requires root initially to read the Docker containers folder. To run the demo, run `DOCKER_LIB_CONTAINERS=$(docker info -f '{{.DockerRootDir}}')/containers && sudo docker-compose up -d`. To stop the demo, run `docker-compose down`.
+The demo requires root initially to read the Docker containers folder. To run the demo, run `DOCKER_LIB_CONTAINERS=$(docker info -f '{{.DockerRootDir}}')/containers && sudo DOCKER_LIB_CONTAINERS=${DOCKER_LIB_CONTAINERS} docker-compose up -d`. To stop the demo, run `docker-compose down`.
 
 ## Cribl Routing Demo with Kafka
 
@@ -64,4 +64,4 @@ This demo adds Kafka in the middle between the data generation and Cribl. Data f
       `- Elastic Bulk Ingestion -> elastic:9200
       `- S3 -> minio:80
 
-The demo requires root initially to read the Docker containers folder. To run the demo, run `DOCKER_LIB_CONTAINERS=$(docker info -f '{{.DockerRootDir}}')/containers && sudo docker-compose -f docker-compose-kafka.yml up -d`. To stop the demo, run `docker-compose down`.
+The demo requires root initially to read the Docker containers folder. To run the demo, run `DOCKER_LIB_CONTAINERS=$(docker info -f '{{.DockerRootDir}}')/containers && sudo DOCKER_LIB_CONTAINERS=${DOCKER_LIB_CONTAINERS} docker-compose -f docker-compose-kafka.yml up -d`. To stop the demo, run `docker-compose down`.
