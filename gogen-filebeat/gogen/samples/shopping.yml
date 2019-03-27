@@ -17,8 +17,8 @@ generator: timeTaken
 tokens:
 - format: template
   name: ts
-  replacement: '%b %d %H:%M:%S.%f'
-  type: timestamp
+  replacement: '02/Jan/2006:15:04:05 +0000'
+  type: gotimestamp
 - format: template
   name: method
   type: weightedChoice

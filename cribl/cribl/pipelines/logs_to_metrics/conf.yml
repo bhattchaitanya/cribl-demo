@@ -1,17 +1,25 @@
 asyncFuncTimeout: 1000
 description: Converts Access Combined Logs to Splunk Metrics
 functions:
-  - id: regex_extract
-    filter: "true"
+  - id: serde
+    filter: sourcetype=='access_combined'
     disabled: null
     conf:
-      regex: /^(?<clientIP>[\d.]+) (?<__ident>\S+) (?<httpBasicUser>\S+)
-        (?<__timestamp>\[[^\]]+\]) "(?<method>\w+)
-        (?<uri>[^?]+)\??(?<__queryString>[^ ]+)? HTTP (?<httpVersion>[0-9.]+)"
-        (?<status>\d{3}) (?<__bytes>\d+) "(?<referrer>[^"]+)"
-        "(?<userAgent>[^"]+)" (?<__timeTaken>\d+)$/gm
-      source: _raw
-    description: Extract Web Log Fields
+      mode: extract
+      type: clf
+      srcField: _raw
+      fields:
+        - clientip
+        - ident
+        - user
+        - timestamp
+        - request
+        - status
+        - bytes
+        - referer
+        - useragent
+        - timetaken
+    description: Parse Access Combined logs
   - id: clone
     filter: "true"
     disabled: null
@@ -33,7 +41,9 @@ functions:
           value: >-
             'http.bytes'
         - name: _value
-          value: __bytes
+          value: bytes
+      remove:
+        []
     description: Override source & metric_name for bytes events
   - id: eval
     filter: metric_name == 'http.timeTaken'
@@ -41,11 +51,23 @@ functions:
     conf:
       add:
         - name: _value
-          value: __timeTaken
+          value: timetaken
+      remove:
+        []
     description: Set _value for timeTaken
-  - id: demo_querystring2fields
-    filter: "true"
+  - id: eval
+    filter: sourcetype=='access_combined'
     disabled: null
     conf:
-      {}
-    description: Parse Query String and add field for every k/v pair
+      remove:
+        - bytes
+        - timetaken
+    description: Remove value fields
+  - id: serde
+    filter: sourcetype=='access_combined'
+    disabled: null
+    conf:
+      mode: extract
+      type: kvp
+      srcField: request_uri_query
+    description: Parse Query String

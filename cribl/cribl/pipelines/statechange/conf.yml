@@ -12,7 +12,7 @@ functions:
       Extract Nagios 
   - id: demo_statechange
     filter: sourcetype=='nagios' && __host && __state
-    disabled: null
+    disabled: true
     conf:
       namespace: __host
       init: __state

@@ -8,23 +8,58 @@ routes:
     description: ""
     clones:
       []
-    output: elastic
     filter: __inputId=='http'
-  - id: KM9Pf6
-    name: Sensitive Data
+    output: elastic
+  - id: semK5P
+    name: Elastic Unmodified BigJSON
     final: false
     disabled: false
-    pipeline: masking
-    description: Mask Sensitive Data
+    pipeline: passthru
+    description: Unmodified JSON
     clones:
-      - index: cribl-modified
-        source: pii_ssn
-      - index: cribl-modified
-        source: pii_cc
-      - index: cribl-modified
-        source: encrypt
-    output: null
+      - __index: bigjson
+    filter: index=='cribl' && sourcetype=='lambda'
+    output: elastic
+  - id: Umz4dS
+    name: Elastic Trimmed BigJSON
+    final: false
+    disabled: false
+    pipeline: trim_json
+    description: Trimmed Elastic Output
+    clones:
+      - __index: bigjson-trimmed
+    filter: index=='cribl' && sourcetype=='lambda'
+    output: elastic
+  - id: tTglKB
+    name: S3 Unmodified BigJSON
+    final: false
+    disabled: false
+    pipeline: passthru
+    description: Unmodified BigJSON to S3
+    clones:
+      - host: unmodified
+    filter: index=='cribl' && sourcetype=='lambda'
+    output: minio_bigjson
+  - id: ylRtTp
+    name: S3 Trimmed BigJSON
+    final: false
+    disabled: false
+    pipeline: trim_json
+    description: Trimmed BigJSON to S3
+    clones:
+      - host: trimmed
+    filter: index=='cribl' && sourcetype=='lambda'
+    output: minio_bigjson
+  - id: qVOe5A
+    name: KV to JSON -> Minio
+    final: false
+    disabled: false
+    pipeline: kv2json
+    description: KV To JSON in S3
+    clones:
+      - index: minio
     filter: index=='cribl' && sourcetype=='business_event'
+    output: minio
   - id: be12ct
     name: KV to JSON
     final: false
@@ -34,18 +69,19 @@ routes:
     clones:
       - index: cribl-modified
         source: pretty_autokv
-    output: null
     filter: index=='cribl' && sourcetype=='business_event'
-  - id: qVOe5A
-    name: KV to JSON -> Minio
+    output: default
+  - id: KM9Pf6
+    name: Sensitive Data
     final: false
     disabled: false
-    pipeline: kv2json
-    description: KV To JSON in S3
+    pipeline: masking
+    description: Mask Sensitive Data
     clones:
-      - index: minio
-    output: minio
+      - index: cribl-modified
+        redacted: "true"
     filter: index=='cribl' && sourcetype=='business_event'
+    output: default
   - id: py0d5r
     name: Logs to Metrics
     final: false
@@ -54,8 +90,8 @@ routes:
     description: Convert Access Combined Logs to Splunk Metrics
     clones:
       - index: cribl-metrics
-    output: null
     filter: index=='cribl' && sourcetype=='access_combined'
+    output: default
   - id: 0nJxAA
     name: Sample and Filter
     final: false
@@ -67,8 +103,8 @@ routes:
         source: smart_sample
       - index: cribl-modified
         source: filter
-    output: null
     filter: index=='cribl' && sourcetype=='access_combined'
+    output: default
   - id: ZLTc0g
     name: Enrich
     final: false
@@ -80,8 +116,8 @@ routes:
         source: enrich
       - index: cribl-modified
         source: indextimefields
-    output: null
     filter: index=='cribl' && sourcetype=='access_combined'
+    output: default
   - id: mQEq5u
     name: JWT Decode
     final: false
@@ -90,18 +126,28 @@ routes:
     description: Send auth failures with JWT to decode JWT
     clones:
       - index: cribl-modified
-    output: null
     filter: index=='cribl' && sourcetype=='authfailed'
-  - id: ioa1pg
-    name: State Change
+    output: default
+  - id: q5s3to
+    name: Suppression
     final: false
     disabled: false
-    pipeline: statechange
-    description: Log only on state change
+    pipeline: suppress
+    description: Suppress Duplicate Events
     clones:
       - index: cribl-modified
-    output: null
-    filter: sourcetype=='nagios'
+    filter: index=='cribl' && sourcetype=='nagios'
+    output: default
+  - id: VAGP6z
+    name: Trim BigJSON
+    final: false
+    disabled: false
+    pipeline: trim_json
+    description: Trim Large JSON Events
+    clones:
+      - index: cribl-modified
+    filter: index=='cribl' && sourcetype=='lambda'
+    output: default
   - id: OsuFhD
     name: Main Route
     final: true
@@ -109,6 +155,6 @@ routes:
     pipeline: main
     description: Catchall for routing data through main pipeline
     clones:
-      []
-    output: null
+      - {}
     filter: "true"
+    output: default

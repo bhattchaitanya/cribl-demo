@@ -6,6 +6,7 @@ outputs:
     type: splunk
     host: splunk
     port: 9997
+    onBackpressure: block
     nestedFields: none
     tls:
       disabled: true
@@ -37,3 +38,22 @@ outputs:
     concurrency: 5
     maxPayloadSizeKB: 4096
     flushPeriodSec: 1
+  minio_bigjson:
+    type: s3
+    bucket: bigjson
+    destPath: ""
+    stagePath: /tmp/cribl
+    awsApiKey: ACCESSKEY
+    awsSecretKey: SECRETKEY
+    region: us-east-1
+    endpoint: http://minio:9000
+    signatureVersion: v4
+    partitionExpr: >-
+      `${host}/${sourcetype}`
+    format: json
+    baseFileName: CriblOut
+    compress: gzip
+    maxFileSizeMB: 32
+    maxFileOpenTimeSec: 60
+    maxFileIdleTimeSec: 30
+    maxOpenFiles: 100
