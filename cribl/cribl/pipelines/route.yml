@@ -39,7 +39,7 @@ routes:
     clones:
       - host: unmodified
     filter: index=='cribl' && sourcetype=='lambda'
-    output: minio_bigjson
+    output: s3_bigjson
   - id: ylRtTp
     name: S3 Trimmed BigJSON
     final: false
@@ -49,9 +49,9 @@ routes:
     clones:
       - host: trimmed
     filter: index=='cribl' && sourcetype=='lambda'
-    output: minio_bigjson
+    output: s3_bigjson
   - id: qVOe5A
-    name: KV to JSON -> Minio
+    name: KV to JSON -> S3
     final: false
     disabled: false
     pipeline: kv2json
@@ -59,7 +59,7 @@ routes:
     clones:
       - index: minio
     filter: index=='cribl' && sourcetype=='business_event'
-    output: minio
+    output: s3
   - id: be12ct
     name: KV to JSON
     final: false

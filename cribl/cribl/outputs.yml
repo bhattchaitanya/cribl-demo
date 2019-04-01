@@ -10,7 +10,7 @@ outputs:
     nestedFields: none
     tls:
       disabled: true
-  minio:
+  s3:
     type: s3
     bucket: business_event
     destPath: ""
@@ -38,7 +38,7 @@ outputs:
     concurrency: 5
     maxPayloadSizeKB: 4096
     flushPeriodSec: 1
-  minio_bigjson:
+  s3_bigjson:
     type: s3
     bucket: bigjson
     destPath: ""

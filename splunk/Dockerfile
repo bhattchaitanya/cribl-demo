@@ -2,7 +2,9 @@ FROM outcoldman/splunk:7.2.0
 ARG CRIBL_DISTRO=cribl-splunk-app
 RUN sh -c 'echo dash dash/sh boolean false | debconf-set-selections' && \
     sh -c 'DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash' && \
-    apt-get update && \
+    echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list && \
+    sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list && \
+    apt-get -o Acquire::Check-Valid-Until=false update && \
     apt-get install -y vim nano curl ca-certificates jq && \
     rm -rf /var/lib/apt/lists/*
 RUN VERSION=$(curl -s https://cdn.cribl.io/versions.json | jq -r .version) && \
