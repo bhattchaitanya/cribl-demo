@@ -1,0 +1,8 @@
+filebeat.prospectors:
+- type: log
+  paths:
+    - ${PWD}/bigjson.log
+# output.console:
+#  pretty: true
+output.logstash:
+  hosts: ["localhost:5045"]
