@@ -19,7 +19,7 @@ functions:
         - message
         - offset
         - prospector
-        - "@timestamp"
+        - __e['@timestamp']
   - id: auto_timestamp
     filter: "true"
     disabled: null
