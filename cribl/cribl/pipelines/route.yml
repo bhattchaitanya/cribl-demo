@@ -8,7 +8,7 @@ routes:
     description: Send Statsd Metrics to Splunk
     clones:
       - index: cribl-metrics
-    filter: sourcetype=='statsd_ext' || sourcetype=='graphite'
+    filter: sourcetype=='statsd_ext' || sourcetype=='graphite' || sourcetype=='statsd'
     output: splunk
   - id: A1JddJ
     name: statsd
@@ -17,7 +17,7 @@ routes:
     pipeline: statsd
     description: Aggregate Statsd Metrics
     clones: []
-    filter: sourcetype=='statsd_ext' || sourcetype=='graphite'
+    filter: sourcetype=='statsd_ext' || sourcetype=='graphite' || sourcetype=='statsd'
     output: graphite
   - id: Qo3BYx
     name: elastic
