@@ -21,7 +21,11 @@ fi
 git log -1 | tail -n +5 | awk '{$1=$1};1' > "${DIR}/message.txt"
 
 # Clone Training repo
-git clone git@github.com:criblio/cribl-training.git
+PAT=""
+if [ -n "$CRIBLCI_PAT" ]; then
+    PAT="${CRIBLCI_PAT}@"
+fi
+cd "${DIR}" && git clone https://${PAT}github.com/criblio/cribl-training.git
 
 # Merge files from orig directory into training repo
 cp -R ${DIR}/orig/ ${DIR}/cribl-training
@@ -37,8 +41,11 @@ cat "${DIR}/services-todelete.txt" | xargs -n1 -I{} "${YQ}" d -i "${DIR}/cribl-t
 # Set gogen to use training generator
 "${YQ}" w -i "${DIR}/cribl-training/docker-compose.yml" services.gogen.command "start-training"
 
-cd "${DIR}/cribl-training"
-git add .
-git commit -F "${DIR}/message.txt"
-# git push -u origin master
+if [ -n "$CRIBLCI_PAT" ]; then
+    echo "Pushing to cribl-training repo..."
+    cd "${DIR}/cribl-training"
+    git add .
+    git commit -F "${DIR}/message.txt"
+    git push -u origin master
+fi
 
