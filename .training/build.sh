@@ -33,11 +33,11 @@ if [ -n "$CRIBLCI_PAT" ]; then
 fi
 cd "${DIR}" && git clone https://${PAT}github.com/criblio/cribl-training.git
 
-# Merge files from orig directory into training repo
-cp -Rv ${DIR}/orig/* ${DIR}/cribl-training
-
 # Bring all files from demo into repo which are match from whitelist file
 rsync -arv --files-from="${DIR}/whitelist" "${DIR}/../" "${DIR}/cribl-training/"
+
+# Merge files from orig directory into training repo
+cp -Rv ${DIR}/orig/* ${DIR}/cribl-training
 
 # Keep only compose entries on whitelist
 "${YQ}" read "${DIR}/cribl-training/docker-compose.yml" 'services' -j | "${JQ}" 'keys' | "${JQ}" -r .[] > "${DIR}/services.txt"
