@@ -1,0 +1,10 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: CRIBLCI_PAT=$(criblci_pat) bash .training/build.sh
+  displayName: 'Build and push training repo'
+
