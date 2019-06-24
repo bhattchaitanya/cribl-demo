@@ -34,7 +34,7 @@ fi
 cd "${DIR}" && git clone https://${PAT}github.com/criblio/cribl-training.git
 
 # Merge files from orig directory into training repo
-cp -R ${DIR}/orig/ ${DIR}/cribl-training
+cp -Rv ${DIR}/orig/* ${DIR}/cribl-training
 
 # Bring all files from demo into repo which are match from whitelist file
 rsync -arv --files-from="${DIR}/whitelist" "${DIR}/../" "${DIR}/cribl-training/"
