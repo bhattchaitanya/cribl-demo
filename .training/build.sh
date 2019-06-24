@@ -20,6 +20,12 @@ fi
 # Get last commit message from demo repo
 git log -1 | tail -n +5 | awk '{$1=$1};1' > "${DIR}/message.txt"
 
+# Set user and email if not set
+if [ -z "$(git config --global --get user.name)" ]; then
+    git config --global user.name "Cribl CI"
+    git config --global user.email "criblci@cribl.io"
+fi
+
 # Clone Training repo
 PAT=""
 if [ -n "$CRIBLCI_PAT" ]; then
