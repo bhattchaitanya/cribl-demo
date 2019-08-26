@@ -2,14 +2,6 @@ outputs:
   default:
     defaultId: splunk
     type: default
-  splunk:
-    type: splunk
-    host: splunk
-    port: 9997
-    onBackpressure: block
-    nestedFields: none
-    tls:
-      disabled: true
   s3:
     type: s3
     bucket: business_event
@@ -37,6 +29,7 @@ outputs:
     concurrency: 5
     maxPayloadSizeKB: 4096
     flushPeriodSec: 1
+    onBackpressure: drop
   s3_bigjson:
     type: s3
     bucket: bigjson
@@ -63,3 +56,31 @@ outputs:
     port: 2003
     mtu: 512
     flushPeriodSec: 1
+    onBackpressure: drop
+  splunk:
+    type: splunk
+    host: splunk
+    port: 9997
+    onBackpressure: queue
+    nestedFields: none
+    tls:
+      disabled: true
+  statsd:
+    type: router
+    rules:
+      - filter: "true"
+        output: splunk
+        final: false
+      - filter: "true"
+        output: graphite
+        final: true
+    onBackpressure: drop
+  kv2json:
+    type: router
+    rules:
+      - filter: "true"
+        output: splunk
+        final: false
+      - filter: "true"
+        output: s3
+        final: true
