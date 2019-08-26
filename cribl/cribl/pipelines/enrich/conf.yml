@@ -114,5 +114,4 @@ functions:
     conf:
       remove:
         - httpBasicUser
-        - JSESSIONID
 output: default
