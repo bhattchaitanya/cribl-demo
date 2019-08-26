@@ -86,6 +86,6 @@ functions:
         - source
         - sourcetype
         - action
-        - category
+        - category_id
       cumulative: false
     description: Aggregate Web Access Logs
