@@ -69,7 +69,7 @@ outputs:
     type: router
     rules:
       - filter: "true"
-        output: splunk
+        output: splunk-metrics
         final: false
       - filter: "true"
         output: graphite
@@ -84,3 +84,13 @@ outputs:
       - filter: "true"
         output: s3
         final: true
+  splunk-metrics:
+    type: splunk
+    host: splunk
+    port: 9998
+    nestedFields: none
+    tls:
+      disabled: true
+    connectionTimeout: 5000
+    writeTimeout: 10000
+    onBackpressure: block
