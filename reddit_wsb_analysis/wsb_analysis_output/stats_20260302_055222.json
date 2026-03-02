@@ -1,0 +1,314 @@
+{
+  "total_predictions": 23,
+  "resolved_predictions": 14,
+  "inconclusive": 9,
+  "correct": 4,
+  "partial": 1,
+  "incorrect": 9,
+  "overall_accuracy": 0.321,
+  "topic_stats": {
+    "war": {
+      "n": 4,
+      "correct": 3,
+      "partial": 1,
+      "incorrect": 0,
+      "accuracy": 0.875
+    },
+    "ai": {
+      "n": 1,
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 1,
+      "accuracy": 0.0
+    },
+    "fed_rates": {
+      "n": 2,
+      "correct": 1,
+      "partial": 0,
+      "incorrect": 1,
+      "accuracy": 0.5
+    },
+    "crypto": {
+      "n": 3,
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 3,
+      "accuracy": 0.0
+    },
+    "market": {
+      "n": 2,
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 2,
+      "accuracy": 0.0
+    },
+    "energy": {
+      "n": 2,
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 2,
+      "accuracy": 0.0
+    }
+  },
+  "direction_stats": {
+    "bullish": {
+      "n": 13,
+      "correct": 3,
+      "partial": 1,
+      "accuracy": 0.269
+    },
+    "bearish": {
+      "n": 1,
+      "correct": 1,
+      "partial": 0,
+      "accuracy": 1.0
+    }
+  },
+  "top_correct_predictions": [
+    {
+      "prediction_text": "Gold (GLD) will rise as safe haven from geopolitical tensions",
+      "direction": "bullish",
+      "tickers": [
+        "GLD"
+      ],
+      "asset_class": "commodity",
+      "topic": "war",
+      "time_horizon": "months",
+      "confidence_score": 0.72,
+      "original_text": "Also long UUP (dollar) and GLD as safe havens",
+      "post_id": "demo002",
+      "post_title": "China Taiwan conflict craters tech",
+      "post_score": 2800,
+      "post_created_utc": 1767073941.845823,
+      "post_created_dt": "2025-12-30T05:52:21.845824+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo002",
+      "post_flair": "Discussion",
+      "price_changes": {
+        "GLD": 9.62
+      },
+      "evaluation_dt": "2026-02-28T05:52:21.845823+00:00",
+      "avg_pct_change": 9.62,
+      "outcome": "correct",
+      "outcome_reason": "Assets rose +9.6% (moderate bull move)",
+      "abs_chg": 9.62
+    },
+    {
+      "prediction_text": "GLD will rise as Fed rate cuts weaken dollar and boost gold",
+      "direction": "bullish",
+      "tickers": [
+        "GLD"
+      ],
+      "asset_class": "commodity",
+      "topic": "fed_rates",
+      "time_horizon": "months",
+      "confidence_score": 0.77,
+      "original_text": "Also long gold - rate cuts are bullish for GLD",
+      "post_id": "demo006",
+      "post_title": "Fed will cut rates 3x 2026",
+      "post_score": 2100,
+      "post_created_utc": 1766382741.845854,
+      "post_created_dt": "2025-12-22T05:52:21.845855+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo006",
+      "post_flair": "DD",
+      "price_changes": {
+        "GLD": 9.62
+      },
+      "evaluation_dt": "2026-02-20T05:52:21.845854+00:00",
+      "avg_pct_change": 9.62,
+      "outcome": "correct",
+      "outcome_reason": "Assets rose +9.6% (moderate bull move)",
+      "abs_chg": 9.62
+    },
+    {
+      "prediction_text": "TSM will collapse 40-50% if China blockades Taiwan",
+      "direction": "bearish",
+      "tickers": [
+        "TSM"
+      ],
+      "asset_class": "stock",
+      "topic": "war",
+      "time_horizon": "months",
+      "confidence_score": 0.65,
+      "original_text": "If China blockades Taiwan TSM will collapse 40-50%",
+      "post_id": "demo002",
+      "post_title": "China Taiwan conflict craters tech",
+      "post_score": 2800,
+      "post_created_utc": 1767073941.845819,
+      "post_created_dt": "2025-12-30T05:52:21.845820+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo002",
+      "post_flair": "Discussion",
+      "price_changes": {
+        "TSM": -4.79
+      },
+      "evaluation_dt": "2026-02-28T05:52:21.845819+00:00",
+      "avg_pct_change": -4.79,
+      "outcome": "correct",
+      "outcome_reason": "Assets fell -4.8% (moderate bear move)",
+      "abs_chg": 4.79
+    },
+    {
+      "prediction_text": "RTX should clear $135 driven by NATO spending commitments",
+      "direction": "bullish",
+      "tickers": [
+        "RTX"
+      ],
+      "asset_class": "stock",
+      "topic": "war",
+      "time_horizon": "months",
+      "confidence_score": 0.78,
+      "original_text": "RTX should easily clear $135",
+      "post_id": "demo001",
+      "post_title": "Defense stocks going to moon",
+      "post_score": 4200,
+      "post_created_utc": 1765950741.845813,
+      "post_created_dt": "2025-12-17T05:52:21.845815+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo001",
+      "post_flair": "DD",
+      "price_changes": {
+        "RTX": 3.97
+      },
+      "evaluation_dt": "2026-02-15T05:52:21.845813+00:00",
+      "avg_pct_change": 3.97,
+      "outcome": "correct",
+      "outcome_reason": "Assets rose +4.0% (moderate bull move)",
+      "abs_chg": 3.97
+    }
+  ],
+  "top_wrong_predictions": [
+    {
+      "prediction_text": "ETH will reach $8k in the current bull cycle",
+      "direction": "bullish",
+      "tickers": [
+        "ETH-USD"
+      ],
+      "asset_class": "crypto",
+      "topic": "crypto",
+      "time_horizon": "months",
+      "confidence_score": 0.76,
+      "original_text": "ETH to $8k",
+      "post_id": "demo008",
+      "post_title": "Bitcoin to $200k by March 2026",
+      "post_score": 12000,
+      "post_created_utc": 1765518741.845865,
+      "post_created_dt": "2025-12-12T05:52:21.845866+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo008",
+      "post_flair": "YOLO",
+      "price_changes": {
+        "ETH-USD": -20.0
+      },
+      "evaluation_dt": "2026-02-10T05:52:21.845865+00:00",
+      "avg_pct_change": -20.0,
+      "outcome": "incorrect",
+      "outcome_reason": "Assets fell -20.0% (against bull prediction)",
+      "abs_chg": 20.0
+    },
+    {
+      "prediction_text": "NVDA will beat EPS estimates by 15% and hit $200 by end of Q1 2026",
+      "direction": "bullish",
+      "tickers": [
+        "NVDA"
+      ],
+      "asset_class": "stock",
+      "topic": "ai",
+      "time_horizon": "months",
+      "confidence_score": 0.88,
+      "original_text": "NVDA will beat EPS estimates by at least 15%. Price target: $200 by end of Q1 2026",
+      "post_id": "demo003",
+      "post_title": "NVDA earnings blowout $200 before March",
+      "post_score": 8900,
+      "post_created_utc": 1765086741.845827,
+      "post_created_dt": "2025-12-07T05:52:21.845828+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo003",
+      "post_flair": "YOLO",
+      "price_changes": {
+        "NVDA": -14.08
+      },
+      "evaluation_dt": "2026-02-05T05:52:21.845827+00:00",
+      "avg_pct_change": -14.08,
+      "outcome": "incorrect",
+      "outcome_reason": "Assets fell -14.1% (against bull prediction)",
+      "abs_chg": 14.08
+    },
+    {
+      "prediction_text": "BTC will reach $200k by March 2026 driven by halving, ETF inflows, and crypto-friendly administration",
+      "direction": "bullish",
+      "tickers": [
+        "BTC-USD"
+      ],
+      "asset_class": "crypto",
+      "topic": "crypto",
+      "time_horizon": "months",
+      "confidence_score": 0.85,
+      "original_text": "BTC is going to $200k minimum",
+      "post_id": "demo008",
+      "post_title": "Bitcoin to $200k by March 2026",
+      "post_score": 12000,
+      "post_created_utc": 1765518741.845861,
+      "post_created_dt": "2025-12-12T05:52:21.845862+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo008",
+      "post_flair": "YOLO",
+      "price_changes": {
+        "BTC-USD": -9.28
+      },
+      "evaluation_dt": "2026-02-10T05:52:21.845861+00:00",
+      "avg_pct_change": -9.28,
+      "outcome": "incorrect",
+      "outcome_reason": "Assets fell -9.3% (against bull prediction)",
+      "abs_chg": 9.28
+    },
+    {
+      "prediction_text": "COIN will reach $500 as crypto bull market continues",
+      "direction": "bullish",
+      "tickers": [
+        "COIN"
+      ],
+      "asset_class": "stock",
+      "topic": "crypto",
+      "time_horizon": "months",
+      "confidence_score": 0.73,
+      "original_text": "COIN to $500",
+      "post_id": "demo008",
+      "post_title": "Bitcoin to $200k by March 2026",
+      "post_score": 12000,
+      "post_created_utc": 1765518741.845869,
+      "post_created_dt": "2025-12-12T05:52:21.845870+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo008",
+      "post_flair": "YOLO",
+      "price_changes": {
+        "COIN": -8.82
+      },
+      "evaluation_dt": "2026-02-10T05:52:21.845869+00:00",
+      "avg_pct_change": -8.82,
+      "outcome": "incorrect",
+      "outcome_reason": "Assets fell -8.8% (against bull prediction)",
+      "abs_chg": 8.82
+    },
+    {
+      "prediction_text": "QQQ will reach $550 as tech leads the soft landing rally",
+      "direction": "bullish",
+      "tickers": [
+        "QQQ"
+      ],
+      "asset_class": "index",
+      "topic": "market",
+      "time_horizon": "months",
+      "confidence_score": 0.78,
+      "original_text": "QQQ to $550",
+      "post_id": "demo010",
+      "post_title": "S&P 500 to 7000 by end of Q1 2026",
+      "post_score": 5600,
+      "post_created_utc": 1766814741.845881,
+      "post_created_dt": "2025-12-27T05:52:21.845882+00:00",
+      "post_url": "https://reddit.com/r/wallstreetbets/demo010",
+      "post_flair": "DD",
+      "price_changes": {
+        "QQQ": -6.2
+      },
+      "evaluation_dt": "2026-02-25T05:52:21.845881+00:00",
+      "avg_pct_change": -6.2,
+      "outcome": "incorrect",
+      "outcome_reason": "Assets fell -6.2% (against bull prediction)",
+      "abs_chg": 6.2
+    }
+  ]
+}

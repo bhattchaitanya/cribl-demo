@@ -38,6 +38,7 @@ from reddit_fetcher    import fetch_wsb_posts
 from prediction_extractor import batch_extract_predictions, deduplicate_predictions
 from market_analyzer   import score_all_predictions, compute_accuracy_stats
 from reporter          import print_full_report, save_charts, save_data
+from demo_data         import DEMO_POSTS, DEMO_PREDICTIONS
 
 # ── Logging setup ─────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -83,6 +84,15 @@ def parse_args() -> argparse.Namespace:
         help="Save raw fetched posts to JSON file for later reuse"
     )
     p.add_argument(
+        "--demo", action="store_true",
+        help="Use built-in demo WSB posts (no Reddit credentials needed)"
+    )
+    p.add_argument(
+        "--skip-extract", action="store_true",
+        help="Skip Reddit fetch + Claude extraction; use pre-built demo predictions directly "
+             "(no API keys needed — great for trying out the market scoring & report)"
+    )
+    p.add_argument(
         "--verbose", "-v", action="store_true",
         help="Enable verbose (DEBUG) logging"
     )
@@ -116,7 +126,36 @@ def main() -> int:
     # ── Step 1: Fetch posts (or load from cache) ──────────────────────────────
     predictions: list[dict]
 
-    if args.load_cache:
+    if args.skip_extract:
+        console.rule("[bold cyan]Skipping Fetch + Extract — Using Pre-built Demo Predictions")
+        console.print(
+            f"[dim]Loaded {len(DEMO_PREDICTIONS)} pre-extracted predictions "
+            f"(Dec 2025 – Feb 2026). No API keys needed.[/dim]\n"
+        )
+        predictions = list(DEMO_PREDICTIONS)   # use the hardcoded set directly
+
+    elif args.demo:
+        console.rule("[bold cyan]Step 1 — Using Built-in Demo Posts")
+        console.print(
+            f"[dim]Loaded {len(DEMO_POSTS)} realistic WSB demo posts "
+            f"(Dec 2025 – Feb 2026). No Reddit credentials needed.[/dim]\n"
+        )
+        posts = DEMO_POSTS
+        # Jump straight to extraction
+        console.rule("[bold cyan]Step 2 — Extracting Predictions via Claude AI")
+        console.print(f"[dim]Analysing {len(posts)} posts with claude-haiku-4-5…[/dim]")
+        try:
+            raw_predictions = batch_extract_predictions(posts)
+        except EnvironmentError as exc:
+            console.print(f"[bold red]Configuration error:[/bold red] {exc}")
+            return 1
+        predictions = deduplicate_predictions(raw_predictions)
+        console.print(
+            f"[green]Extracted {len(raw_predictions)} raw → "
+            f"{len(predictions)} unique predictions[/green]"
+        )
+
+    elif args.load_cache:
         predictions = _load_cache(args.load_cache)
     else:
         console.rule("[bold cyan]Step 1 — Fetching Reddit Posts")
