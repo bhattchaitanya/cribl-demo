@@ -1,0 +1,1 @@
+# WSB Prediction Analyzer package
